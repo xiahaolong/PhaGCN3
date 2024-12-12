@@ -156,3 +156,5 @@ except:
    ("There is no sequence with a predicted result")
 
 
+cmd = f"python score_verification.py --contigs {args.contigs} --outpath {args.outpath}"
+out = subprocess.check_call(cmd, shell=True)
