@@ -24,7 +24,7 @@ def index_replace(n):
             v = fields[1]
             index_dict[v] = "test_"+str(n)+"_"+k
 
-    # 替换数据文件内容
+    
     with open(data_file, 'r') as f1:
         lines = f1.readlines()
     with open(medium, 'w') as f2:
@@ -64,10 +64,10 @@ def create_dict_from_first_file(file1):
 f1 = open(f"{args.outpath}/result.txt","r")
 result_dict = create_dict_from_first_file("database/taxonomic_path.csv")
 g1 = open(f"{args.outpath}/final_prediction.csv","w")
-print("contig_name,idx,prediction,prediction_score,full_path",file = g1)#匹配score（新）
+print("contig_name,idx,prediction,prediction_score,full_path",file = g1)
 for each in f1:
     each = each.strip()
-    (x,y,z,score) = each.split(",",3)#匹配score（新）
+    (x,y,z,score) = each.split(",",3)
     if "idx" == y:
         continue
     else:

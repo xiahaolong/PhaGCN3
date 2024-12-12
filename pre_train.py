@@ -11,9 +11,9 @@ import re
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument('--contigs', type=str, default = 'contigs.fa')
 parser.add_argument('--len', type=int, default=8000)
-args = parser.parse_args()   #俩个命令行参数，分别为args.contigs和args.len
+args = parser.parse_args()   
 
-if not os.path.exists("input"):    #如果input文件夹不存在，就创建一个input文件夹，如果存在input文件夹，将其中内容清空
+if not os.path.exists("input"):
     _ = os.makedirs("input")
 else:
     print("folder {0} exist... cleaning dictionary".format("input"))
@@ -27,7 +27,7 @@ else:
             exit(1)
 
 
-if not os.path.exists("pred"):   #如果pred文件夹不存在，就创建一个pred文件夹，如果存在pred文件夹，将其中内容清空
+if not os.path.exists("pred"):   
     _ = os.makedirs("pred")
 else:
     print("folder {0} exist... cleaning dictionary".format("pred"))
@@ -42,7 +42,7 @@ else:
 
 
 
-if not os.path.exists("Split_files"):   #如果Split_files文件夹不存在，就创建一个Split_files文件夹，如果存在Split_files文件夹，将其中内容清空
+if not os.path.exists("Split_files"):   
     _ = os.makedirs("Split_files")
 else:
     print("folder {0} exist... cleaning dictionary".format("Split_files"))
@@ -68,19 +68,14 @@ cnt = 0
 file_id = 0
 records = []
 for record in SeqIO.parse(args.contigs, 'fasta'):
-# 此时record的格式为
-# ID: 6_13
-# Name: 6_13
-# Description: 6_13 k141_1331 flag=0 multi=33.8007 len=8757
-# Number of features: 0
-# Seq('CACAGCTGCGACTGGGACCGGCAGACATTCTGGAGTCAGATGAGAATGGCATTA...CCG')
+
     if cnt !=0 and cnt%1000 == 0:
         SeqIO.write(records, "Split_files/contig_"+str(file_id)+".fasta","fasta")
-        records = []     #将得到的序列分开并存储到split文件夹中，命名格式为contig_1.fasta,contig_2.fasta
+        records = []     
         file_id+=1
         cnt = 0
     seq = str(record.seq)
-    seq = seq.upper()  #小写转大写
+    seq = seq.upper()  
 
     if special_match(seq):
         if len(record.seq) > args.len:
@@ -88,7 +83,7 @@ for record in SeqIO.parse(args.contigs, 'fasta'):
             cnt+=1
 
 SeqIO.write(records, "Split_files/contig_"+str(file_id)+".fasta","fasta")
-file_id+=1    #分开最后一个
+file_id+=1    
 for i in range(file_id):
     cmd = "mv Split_files/contig_"+str(i)+".fasta input/"
     try:

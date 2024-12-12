@@ -7,16 +7,17 @@ import pandas as pd
 import subprocess
 import argparse
 import re
-VERSION = "PhaGCN version : 2.3\nICTV database version: VMR_MSL39_v1.xlsx 05/17/2024 "
+VERSION = "VirusGCN version : 1.1\nICTV database version: VMR_MSL39_v1.xlsx 05/17/2024 "
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument('--contigs', type=str, default = 'contigs.fa')
 parser.add_argument('--len', type=int, default=8000)
+parser.add_argument('--clustering', type=int, default=100000)
 parser.add_argument('--outpath', type=str, default= "result")
 parser.add_argument('-v', '--version', action='version', version=VERSION)
 args = parser.parse_args()
-print("\n\n" + "{:-^80}".format("PhaGCN2 version"))
+print("\n\n" + "{:-^80}".format("VirusGCN version"))
 print(VERSION)
-print("\n\n" + "{:-^80}".format("start PhaGCN2,check result folder"))
+print("\n\n" + "{:-^80}".format("start VirusGCN,check result folder"))
 if os.path.exists(f"{args.outpath}"):
     print("folder {0} exist... please make sure the result folder is different when you run it multiple times".format(f"{args.outpath}"))
 
@@ -83,7 +84,7 @@ cnt = 0
 file_id = 0
 records = []
 for record in SeqIO.parse(args.contigs, 'fasta'):
-    if cnt !=0 and cnt%1000000 == 0:
+    if cnt !=0 and cnt%args.clustering == 0:
         SeqIO.write(records, f"{args.outpath}/Split_files/contig_"+str(file_id)+".fasta","fasta") 
         records = []
         file_id+=1

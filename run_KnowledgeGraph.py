@@ -199,17 +199,6 @@ print("Loading proteins...")
 gene2genome_fp = out_f+"gene_to_genome.csv"
 gene2genome_df = pd.read_csv(gene2genome_fp, sep=',', header=0)
 def make_protein_clusters_mcl(abc_fp, out_p, inflation=2):   
-    """  
-    使用 MCL（Markov聚类）算法进行蛋白质聚类。
-    
-    Args: 
-        abc_fp (str): BLAST结果文件路径  
-        inflation (float): MCL算法的膨胀值（控制聚类的松散或紧密程度）
-        out_p (str): 输出文件夹的路径
-        
-    Returns:  
-        str: 返回MCL聚类文件的路径
-    """
     
     print("Running MCL...")  
     abc_fn = "merged"  
@@ -218,18 +207,14 @@ def make_protein_clusters_mcl(abc_fp, out_p, inflation=2):
     mcxload_fn = '{}_mcxload.tab'.format(abc_fn)  
     mcxload_fp = os.path.join(out_p, mcxload_fn)  
 
-    # 1. 使用 mcxload 命令转换 abc 文件
+    
     subprocess.check_call("mcxload -abc {0} --stream-mirror --stream-neg-log10 -stream-tf 'ceil(200)' -o {1} -write-tab {2}".format(
         abc_fp, mci_fp, mcxload_fp), shell=True)  
 
-    # 2. 添加 mcx convert 命令
-    mcx_fp = '{}.mcx'.format(abc_fn)  # 生成 .mcx 文件名
-    mcx_fp_full = os.path.join(out_p, mcx_fp)  # 完整路径
-
-    # 执行 mcx convert 命令，将 .mci 文件转换为 .mcx 文件
+    
+    mcx_fp = '{}.mcx'.format(abc_fn)  
+    mcx_fp_full = os.path.join(out_p, mcx_fp)  
     subprocess.check_call("mcx convert {0} {1}".format(mci_fp, mcx_fp_full), shell=True)
-
-    # 3. 使用 mcl 命令进行聚类
     mcl_clstr_fn = "{0}_mcl{1}.clusters".format(abc_fn, int(inflation*10))  
     mcl_clstr_fp = os.path.join(out_p, mcl_clstr_fn)  
 
@@ -372,19 +357,19 @@ def build_pc_matrices(profiles, contigs, pcs):
     profiles = profiles.loc[:, ["pos_contig", "pos_pc"]]
     row_indices, col_indices = zip(*profiles.values)  # 将结果解压为行和列的索引
 
-    # 使用 NumPy 创建稠密矩阵
+    
     matrix = np.zeros((len(contigs), len(pcs)))
     for r, c in zip(row_indices, col_indices):
-        matrix[r, c] = 1  # 标记为 1，表示存在连接
+        matrix[r, c] = 1  
 
-    return matrix, singletons  # 返回 NumPy 数组
+    return matrix, singletons  
 
 
 def run_network_computation():
-    cmd = f"python3.13t /home/ubuntu/PhaGCN2.0/network_compute.py --outpath {args.outpath}"
+    cmd = f"python3.13t network_compute.py --outpath {args.outpath}"
     out = subprocess.check_call(cmd, shell=True)
 
-    # 检查输出文件
+    
     S = np.load(f"{args.outpath}/out/output_network.npz")
     return S
 
@@ -474,7 +459,7 @@ cmd = f"python3.13t edge.py --outpath {args.outpath}"
 out = subprocess.check_call(cmd, shell=True)
 G = joblib.load(open(f"{args.outpath}/out/graph.joblib", "rb"))
 
-##添加
+
 name_to_id = {}
 reference_df = pd.read_csv("database/reference_name_id.csv")
 tmp_ref = reference_df["name"].values

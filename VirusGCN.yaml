@@ -5,6 +5,7 @@ channels:
   - defaults
   - conda-forge
 dependencies:
+  - seqkit=2.9.0=h9ee0642_0
   - _libgcc_mutex=0.1=conda_forge
   - _openmp_mutex=4.5=2_kmp_llvm
   - aom=3.6.0=h6a678d5_0
@@ -126,8 +127,8 @@ dependencies:
     - scipy==1.13.1
     - setuptools==75.1.0
     - sympy==1.13.2
-    - torch==2.3.0
-    - torchvision==0.18.1a0
+    - torch==2.3.1
+    - torchvision==0.18.1
     - typing-extensions==4.11.0
     - wheel==0.44.0
 prefix: /home/ubuntu/miniconda3/envs/phagcn

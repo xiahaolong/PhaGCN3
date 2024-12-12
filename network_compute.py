@@ -13,7 +13,7 @@ def hypergeom_sf(x, N, K, n):
     p = 0
     for k in range(int(x) + 1):
         if k < 0 or k > K or (n - k) < 0 or (N - K) < (n - k):
-            continue  # 跳过无效的 k 值
+            continue  
         p += (math.comb(int(K), int(k)) * math.comb(int(N - K), int(n - k))) / math.comb(int(N), int(n))
     return 1 - p
 
@@ -21,16 +21,16 @@ def calculate_significance(A, B, commons_pc, pcs, number_of_pc, logT, max_sig):
     a, b = sorted([number_of_pc[A], number_of_pc[B]])
     commons_value = commons_pc[A, B] - 1
     
-    # 确保 commons_value 非负
+    
     if commons_value < 0:
-        return A, B, 0  # 返回0表示不显著
+        return A, B, 0  
     
     pval = hypergeom_sf(commons_value, pcs, a, b)
     sig = min(max_sig, np.nan_to_num(-np.log10(pval) - logT))
     return A, B, sig
 
 def create_network(matrix_path, singletons_path, thres=1, max_sig=1000, chunk_size=100):
-    # 使用内存映射加载数据
+    
     matrix = np.load(matrix_path, mmap_mode='r')
     singletons = np.load(singletons_path, mmap_mode='r')
 
@@ -43,7 +43,7 @@ def create_network(matrix_path, singletons_path, thres=1, max_sig=1000, chunk_si
 
     S = np.zeros((contigs, contigs), dtype=np.float32)
 
-    # 分块处理
+    
     for start in range(0, contigs, chunk_size):
         end = min(start + chunk_size, contigs)
         with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
@@ -59,7 +59,7 @@ def create_network(matrix_path, singletons_path, thres=1, max_sig=1000, chunk_si
                     S[A, B] = sig
                     S[B, A] = sig
 
-        # 定期清理内存
+        
         gc.collect()
 
     edge_count = np.count_nonzero(S > 0)
@@ -73,7 +73,7 @@ def create_network(matrix_path, singletons_path, thres=1, max_sig=1000, chunk_si
 
     return S
 
-# 加载数据并创建网络
+
 matrix_path = f"{args.outpath}/out/matrix.npy"
 singletons_path = f"{args.outpath}/out/singletons.npy"
 thres = 1
