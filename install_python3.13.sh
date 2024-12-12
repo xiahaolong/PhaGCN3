@@ -6,5 +6,4 @@ python3.13t -m pip install joblib
 python3.13t -m pip install networkx
 python3.13t -m pip install numpy
 python3.13t -m pip install pandas
-curl -fsSL https://pixi.sh/install.sh | bash
-source ~/.bashrc
+
