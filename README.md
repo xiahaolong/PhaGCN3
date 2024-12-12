@@ -6,7 +6,7 @@ VirusGCN 是一个专为病毒基因组分析设计的工具，支持 GPU 模式
 
 ### 1. 克隆存储库并创建 Conda 环境
 
-确保您的系统已安装 CUDA，并按照以下步骤操作：
+确保您的系统已安装 Conda，并按照以下步骤操作：
 
 ```bash
 # 克隆 VirusGCN 存储库
@@ -37,7 +37,7 @@ sudo wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
 sudo tar xzf Python-3.13.0.tgz
 ```
 
-#### **2.3 使用脚本安装 Python 3.13**
+#### **2.3 使用脚本安装 Python 3.13以及需要的库**
 
 运行提供的安装脚本：
 
@@ -99,7 +99,7 @@ python run_Speed_up.py --contigs contigs.fa --len 8000 --outpath result
 
 1. `final_prediction.csv`：最终预测结果。
 2. `final_network.ntw`：网络结构文件。
-3. 额外文件（当出现分类误差时）：
+3. 额外文件（当出现“_like”分类误差时）：
    - `processed_test_nodes.csv`
    - `filtered_test_edges.csv`
    - `processed_test_nodes_taxonomy.tsv`（含 Genomad 注释结果）
@@ -114,7 +114,7 @@ conda env create -f draw.yaml -n draw
 
 ### 2. 运行绘图程序
 
-确保绘图程序的输出目录与 VirusGCN 的输出目录一致：
+确保绘图程序的输出目录与 VirusGCN 的输出目录一致,最终的图在您的outpath中：
 
 ```bash
 conda activate draw
