@@ -1,5 +1,7 @@
 # VirusGCN
 
+![image-20241218170530956](https://wenguang.oss-cn-hangzhou.aliyuncs.com/figure/image-20241218170530956.png)
+
 VirusGCN 是一个基于 GCN 的模型，它可以通过深度学习分类器学习物种掩码特征，用于新的病毒分类学分类。以下指南将帮助您快速完成安装和运行。
 
 ## 安装指南
