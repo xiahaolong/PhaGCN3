@@ -124,13 +124,14 @@ python run_Speed_up.py --contigs contigs.fa --outpath result
 4. 额外文件（当出现“_like”分类误差时）：
    - `processed_test_nodes.csv`
    - `filtered_test_edges.csv`
+   - `subgraph_nodes.csv`
    - `processed_test_nodes_taxonomy.tsv`（含 Genomad 注释结果）
 
 ## 绘制网络图
 
 > [!TIP]
 >
-> 类似于gephi，当点数量多的时候，该步骤可能需要大量计算网络图拓扑或者绘制时间，经测试，60000个点大约需要3小时运行绘制时间，因此我们将该步骤设置为单独可选式运行
+> 类似于gephi，当点数量多的时候，该步骤可能需要大量计算网络图拓扑或者绘制时间，经测试，60000个点大约需要2.5小时运行绘制时间，因此我们将该步骤设置为单独可选式运行
 
 
 
