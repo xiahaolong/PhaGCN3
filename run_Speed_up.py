@@ -7,17 +7,17 @@ import pandas as pd
 import subprocess
 import argparse
 import re
-VERSION = "VirusGCN version : 1.1\nICTV database version: VMR_MSL39_v1.xlsx 05/17/2024 "
+VERSION = "PhaGCN version : 3.1\nICTV database version: VMR_MSL39_v1.xlsx 05/17/2024 "
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument('--contigs', type=str, default = 'contigs.fa')
-parser.add_argument('--len', type=int, default=8000)
+parser.add_argument('--len', type=int, default=1700)
 parser.add_argument('--clustering', type=int, default=100000)
 parser.add_argument('--outpath', type=str, default= "result")
 parser.add_argument('-v', '--version', action='version', version=VERSION)
 args = parser.parse_args()
-print("\n\n" + "{:-^80}".format("VirusGCN version"))
+print("\n\n" + "{:-^80}".format("PhaGCN version"))
 print(VERSION)
-print("\n\n" + "{:-^80}".format("start VirusGCN,check result folder"))
+print("\n\n" + "{:-^80}".format("start PhaGCN,check result folder"))
 if os.path.exists(f"{args.outpath}"):
     print("folder {0} exist... please make sure the result folder is different when you run it multiple times".format(f"{args.outpath}"))
 

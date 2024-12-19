@@ -9,7 +9,7 @@ parser.add_argument('--contigs', type=str, default='contigs.fa')
 parser.add_argument('--outpath', type=str, default="result")
 args = parser.parse_args()
 
-def extract_subgraphs_and_process_nodes(input_csv, output_edge_csv, output_node_csv):
+def extract_subgraphs_and_process_nodes(input_csv, output_edge_csv, output_node_csv, output_subgraph_node_csv):
     G = nx.Graph()
 
     with open(input_csv, 'r') as file:
@@ -21,13 +21,15 @@ def extract_subgraphs_and_process_nodes(input_csv, output_edge_csv, output_node_
     connected_components = list(nx.connected_components(G))
     filtered_edges = []
     filtered_nodes = set()  
-
-    for component in connected_components:
+    subgraph_nodes = []
+    
+    for i, component in enumerate(connected_components, start=1):
         subgraph = G.subgraph(component)
-        
         if all(edge[0].startswith("test_") and edge[1].startswith("test_") for edge in subgraph.edges()):
             filtered_edges.extend(subgraph.edges())
             filtered_nodes.update(subgraph.nodes())
+            subgraph_nodes.extend([(f"subgraph{i}", re.sub(r'^test_\d+_', '', node)) for node in subgraph.nodes()])
+
 
     processed_nodes = {
         re.sub(r'^test_\d+_', '', node) for node in filtered_nodes
@@ -42,15 +44,26 @@ def extract_subgraphs_and_process_nodes(input_csv, output_edge_csv, output_node_
         for node in processed_nodes:
             writer.writerow([node])
 
+    with open(output_subgraph_node_csv, 'w') as file:
+        writer = csv.writer(file)
+        subgraph_counter = 1  
+        for component in connected_components:
+            subgraph = G.subgraph(component)
+            if all(edge[0].startswith("test_") and edge[1].startswith("test_") for edge in subgraph.edges()):
+                for node in subgraph.nodes():
+                    writer.writerow([f"subgraph{subgraph_counter}", re.sub(r'^test_\d+_', '', node)])
+                subgraph_counter += 1  
+
     print(f"The edges of the subgraph that meet the conditions have been saved to {output_edge_csv}.")
     print(f"The processed subgraph nodes have been saved to {output_node_csv}.")
-
+    print(f"The list of nodes for each subgraph has been saved to {output_subgraph_node_csv}.")
 
 input_csv_path = f"{args.outpath}/final_network.ntw"  
 output_edge_csv_path = f"{args.outpath}/filtered_test_edges.csv"  
 output_node_csv_path = f"{args.outpath}/processed_test_nodes.csv"  
+output_subgraph_node_csv_path = f"{args.outpath}/subgraph_nodes.csv" 
 
-extract_subgraphs_and_process_nodes(input_csv_path, output_edge_csv_path, output_node_csv_path)
+extract_subgraphs_and_process_nodes(input_csv_path, output_edge_csv_path, output_node_csv_path, output_subgraph_node_csv_path)
 
 import csv
 
