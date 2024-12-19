@@ -13,7 +13,7 @@ Several important updates:
 
 <img src="https://wenguang.oss-cn-hangzhou.aliyuncs.com/figure/image-20241218170530956.png" alt="image-20241218170530956" style="zoom: 50%;" />
 
-PhaGCN3 是一个基于 GCN 的模型，它可以通过深度学习分类器学习物种掩码特征，用于新的病毒分类学分类。以下指南将帮助您快速完成安装和运行。
+PhaGCN3 is a GCN-based model that uses deep learning classifiers to learn species mask features for novel virus taxonomy classification. The following guide will help you quickly install and run it.
 
 ## Installation
 
@@ -22,22 +22,22 @@ PhaGCN3 是一个基于 GCN 的模型，它可以通过深度学习分类器学�
 Ensure that Conda is installed on your system, and follow these steps:
 
 ```bash
-# Clone the VirusGCN repository
-git clone https://github.com/xiahaolong/VirusGCN.git
-cd VirusGCN
+# Clone the PhaGCN3 repository
+git clone https://github.com/xiahaolong/PhaGCN3.git
+cd PhaGCN3
 
 # Create Conda environment
-conda env create -f VirusGCN.yaml -n virusgcn
+conda env create -f PhaGCN3.yaml -n PhaGCN3
 
 # Activate the Conda environment
-conda activate virusgcn
+conda activate PhaGCN3
 ```
 
 ### 2. Install Python 3.13t (free-thread version)
 
 > [!TIP]
 >
-> Since Python 3.13t is required and should be runnable in the environment, we recommend the following installation steps, but users can also install Python 3.13t manually within the virusgcn environment.
+> Since Python 3.13t is required and should be runnable in the environment, we recommend the following installation steps, but users can also install Python 3.13t manually within the PhaGCN3 environment.
 
 
 
@@ -88,18 +88,18 @@ cd ..
 
 ## Example Usage
 
-Here is a complete example of how to use VirusGCN:
+Here is a complete example of how to use PhaGCN3:
 
 ### Input Files
 
 The repository provides an example file `contigs.fa`, which contains overlapping clusters simulated from E. coli bacteriophage.
 
-### Run VirusGCN
+### Run PhaGCN3
 
 Before each run, activate the environment:
 
 ```bash
-conda activate virusgcn
+conda activate PhaGCN3
 ```
 
 Run the following command:
@@ -143,7 +143,7 @@ conda env create -f draw.yaml -n draw
 
 ### 2. Run the drawing program
 
-Make sure the output directory for the drawing program matches the output directory for VirusGCN. The final graph will be in your `outpath`：
+Make sure the output directory for the drawing program matches the output directory for PhaGCN3. The final graph will be in your `outpath`：
 
 ```bash
 conda activate draw
