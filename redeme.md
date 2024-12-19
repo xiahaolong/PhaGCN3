@@ -15,35 +15,35 @@ Several important updates:
 
 PhaGCN3 是一个基于 GCN 的模型，它可以通过深度学习分类器学习物种掩码特征，用于新的病毒分类学分类。以下指南将帮助您快速完成安装和运行。
 
-## 安装
+## Installation
 
-### 1. 克隆存储库并创建 Conda 环境
+### 1. Clone the repository and create a Conda environment
 
-确保您的系统已安装 Conda，并按照以下步骤操作：
+Ensure that Conda is installed on your system, and follow these steps:
 
 ```bash
-# 克隆 VirusGCN 存储库
+# Clone the VirusGCN repository
 git clone https://github.com/xiahaolong/VirusGCN.git
 cd VirusGCN
 
-# 创建 Conda 环境
+# Create Conda environment
 conda env create -f VirusGCN.yaml -n virusgcn
 
-#进入conda环境
+# Activate the Conda environment
 conda activate virusgcn
 ```
 
-### 2. 安装 Python 3.13t（自由线程版本）
+### 2. Install Python 3.13t (free-thread version)
 
 > [!TIP]
 >
-> 由于需要安装python3.13t版本，并保证该版本在环境中可运行，我们推荐以下安装步骤，用户也可以自行在virusgcn环境中安装python3.13t
+> Since Python 3.13t is required and should be runnable in the environment, we recommend the following installation steps, but users can also install Python 3.13t manually within the virusgcn environment.
 
 
 
-#### **2.1 准备安装环境**
+#### **2.1 Prepare the installation environment**
 
-执行以下命令安装必要的依赖：
+Run the following commands to install necessary dependencies:
 
 ```bash
 sudo apt-get upgrade
@@ -52,24 +52,24 @@ sudo apt-get install build-essential libssl-dev zlib1g-dev \
     libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
 ```
 
-#### **2.2 下载并解压 Python 3.13**
+#### **2.2 Download and extract Python 3.13**
 
 ```bash
 wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
 tar xzf Python-3.13.0.tgz
 ```
 
-#### **2.3 使用脚本安装 Python 3.13以及需要的库**
+#### **2.3 Install Python 3.13 and required libraries using the script**
 
-运行提供的安装脚本：
+Run the provided installation script:
 
 ```bash
 sh install_python3.13.sh
 ```
 
-### 3. 安装 Genomad 并准备数据库
+### 3. Install Genomad and prepare the database
 
-#### **3.1 安装 Genomad**
+#### **3.1 Install Genomad**
 
 ```bash
 curl -fsSL https://pixi.sh/install.sh | bash
@@ -78,7 +78,7 @@ pixi global install -c conda-forge -c bioconda genomad
 genomad download-database .
 ```
 
-#### **3.2 解压数据库**
+#### **3.2 Extract the database**
 
 ```bash
 cd database
@@ -86,64 +86,64 @@ tar -zxvf ALL_protein.tar.gz
 cd ..
 ```
 
-## 使用示例
+## Example Usage
 
-以下是使用 VirusGCN 的完整示例：
+Here is a complete example of how to use VirusGCN:
 
-### 输入文件
+### Input Files
 
-存储库中提供了 `contigs.fa` 示例文件，其中包含从大肠杆菌噬菌体模拟的重叠群。
+The repository provides an example file `contigs.fa`, which contains overlapping clusters simulated from E. coli bacteriophage.
 
-### 运行 VirusGCN
+### Run VirusGCN
 
-在每次运行 VirusGCN 前，激活环境：
+Before each run, activate the environment:
 
 ```bash
 conda activate virusgcn
 ```
 
-运行以下命令：
+Run the following command:
 
 ```bash
 python run_Speed_up.py --contigs contigs.fa --outpath result
 ```
 
-#### 参数说明
+#### Parameter Descriptions
 
-- `--contigs`：重叠群文件路径。
-- `--clustering`：预测批次大小（默认值：100,000）。
-- `--outpath`：输出结果路径。
+- `--contigs`：Path to the contig file.
+- `--clustering`：Batch size for prediction (default: 100,000).
+- `--outpath`：Path to output the results.
 
-### 输出文件
+### Output Files
 
-输出文件位于指定的 `outpath` 目录中，包括：
+The output files will be in the specified `outpath` directory, including:
 
-1. `final_prediction.csv`：最终预测结果。
-2. `final_network.ntw`：网络结构文件。
-3. `tmp/node.csv,tmp/edge.csv`: 可用于直接输入 [Gephi](https://gephi.org/) 或者[cytoscape](https://cytoscape.org/)的边文件及点文件
-4. 额外文件（当出现“_like”分类误差时）：
+1. `final_prediction.csv`：Final prediction results.
+2. `final_network.ntw`：Network structure file.
+3. `tmp/node.csv,tmp/edge.csv`: Edge and node files for direct input into [Gephi](https://gephi.org/) or[cytoscape](https://cytoscape.org/).
+4. Additional files (when there is a "_like" classification error):
    - `processed_test_nodes.csv`
    - `filtered_test_edges.csv`
    - `subgraph_nodes.csv`
-   - `processed_test_nodes_taxonomy.tsv`（含 Genomad 注释结果）
+   - `processed_test_nodes_taxonomy.tsv`(including Genomad annotation results)
 
-## 绘制网络图
+## Drawing Network Graph
 
 > [!TIP]
 >
-> 类似于gephi，当点数量多的时候，该步骤可能需要大量计算网络图拓扑或者绘制时间，经测试，60000个点大约需要2.5小时运行绘制时间，因此我们将该步骤设置为单独可选式运行
+> Similar to Gephi, when the number of nodes is large, this step may require significant computation for network topology or drawing time. Based on tests, drawing a network with 60,000 nodes takes about 2.5 hours. Therefore, we set this step as an optional run.
 
 
 
-### 1. 创建绘图环境
+### 1. Create the drawing environment
 
 ```bash
 conda env create -f draw.yaml -n draw
 ```
 
-### 2. 运行绘图程序
+### 2. Run the drawing program
 
-确保绘图程序的输出目录与 VirusGCN 的输出目录一致,最终的图在您的outpath中：
+Make sure the output directory for the drawing program matches the output directory for VirusGCN. The final graph will be in your `outpath`：
 
 ```bash
 conda activate draw
