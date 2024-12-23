@@ -21798,7 +21798,7 @@ ICTVTaxoChallenge_554117	Benedictvirus	0.17614633	r;Duplodnaviria	k;Heunggongvir
 ICTVTaxoChallenge_114304	Geminiviridae	1	r;Monodnaviria	k;Shotokuvirae	p;Cressdnaviricota	c;Repensiviricetes	o;Geplafuvirales	f;Geminiviridae	
 ICTVTaxoChallenge_563381	Straboviridae	1	r;Duplodnaviria	k;Heunggongvirae	p;Uroviricota	c;Caudoviricetes	f;Straboviridae		
 									
-seq_name	prediction	prediction_score	lineage						
+seq_name	prediction	prediction_score	full_path						
 ICTVTaxoChallenge_868157	Ackermannviridae	1	Viruses	Duplodnaviria	Heunggongvirae	Uroviricota	Caudoviricetes		Ackermannviridae
 ICTVTaxoChallenge_676545	Phenuiviridae	1	Viruses	Riboviria	Orthornavirae	Negarnaviricota	Ellioviricetes	Bunyavirales	Phenuiviridae
 ICTVTaxoChallenge_292185	Potyviridae	1	Viruses	Riboviria	Orthornavirae	Pisuviricota	Stelpaviricetes	Patatavirales	Potyviridae
