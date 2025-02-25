@@ -107,3 +107,29 @@ try:
     out = subprocess.check_call(cmd2, shell=True)
 except Exception as e:
     print(f"genomad error: {e}")
+
+import re
+
+
+input_file = f"{args.outpath}/processed_test_nodes_taxonomy.tsv"
+
+
+modifications = {
+    "Viruses;Riboviria;Orthornavirae;Negarnaviricota;Ellioviricetes;Bunyavirales;Phenuiviridae": "Viruses;Riboviria;Orthornavirae;Negarnaviricota;Bunyaviricetes;Elliovirales;Phenuiviridae",
+    "Viruses;Riboviria;Orthornavirae;Negarnaviricota;Ellioviricetes;Bunyavirales;Arenaviridae": "Viruses;Riboviria;Orthornavirae;Negarnaviricota;Bunyaviricetes;Elliovirales;Arenaviridae",
+    "Viruses;Riboviria;Orthornavirae;Negarnaviricota;Ellioviricetes;Bunyavirales;Peribunyaviridae": "Viruses;Riboviria;Orthornavirae;Negarnaviricota;Bunyaviricetes;Elliovirales;Peribunyaviridae",
+    "Viruses;Riboviria;Orthornavirae;Negarnaviricota;Ellioviricetes;Bunyavirales;Nairoviridae": "Viruses;Riboviria;Orthornavirae;Negarnaviricota;Bunyaviricetes;Elliovirales;Nairoviridae",
+    "Viruses;Duplodnaviria;Heunggongvirae;Peploviricota;Herviviricetes;Herpesvirales;Herpesviridae": "Viruses;Duplodnaviria;Heunggongvirae;Peploviricota;Herviviricetes;Herpesvirales;",
+    "Viruses;Varidnaviria;Bamfordvirae;Preplasmiviricota;Maveriviricetes;Priklausovirales;Lavidaviridae": "Viruses;Varidnaviria;Bamfordvirae;Preplasmiviricota;Maveriviricetes;Lavidavirales;"
+}
+
+
+with open(input_file, "r", encoding="utf-8") as file:
+    lines = file.readlines()
+
+with open(input_file, "w", encoding="utf-8") as file:
+    for line in lines:
+        columns = line.strip().split("\t")  
+        for original, modified in modifications.items():
+            columns = [re.sub(re.escape(original), modified, col) for col in columns]
+        file.write("\t".join(columns) + "\n")
