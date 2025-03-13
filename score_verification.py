@@ -3,6 +3,7 @@ import csv
 import re
 import argparse
 import subprocess
+import os
 
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument('--contigs', type=str, default='contigs.fa')
@@ -65,7 +66,10 @@ output_subgraph_node_csv_path = f"{args.outpath}/subgraph_nodes.csv"
 
 extract_subgraphs_and_process_nodes(input_csv_path, output_edge_csv_path, output_node_csv_path, output_subgraph_node_csv_path)
 
-import csv
+if os.path.exists(output_node_csv_path) and os.stat(output_node_csv_path).st_size == 0:
+    print(f"{output_node_csv_path} is empty. Skipping genomad.")
+    exit(0)  
+
 
 def remove_matched_rows(nodes_file, predictions_file):
     with open(nodes_file, 'r') as file:
@@ -108,7 +112,7 @@ try:
 except Exception as e:
     print(f"genomad error: {e}")
 
-import re
+
 
 
 input_file = f"{args.outpath}/processed_test_nodes_taxonomy.tsv"
