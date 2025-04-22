@@ -131,7 +131,7 @@ The output files will be in the specified `outpath` directory, including:
 
 > [!TIP]
 >
-> Similar to Gephi, when the number of nodes is large, this step may require significant computation for network topology or drawing time. Based on tests, drawing a network with 60,000 nodes takes about 2.5 hours. Therefore, we set this step as an optional run.
+> The draw_network.py has been updated. It uses the 16,000 sequences from ictv's vmr_msl39 as test sequences to generate the PhaGCN3 network graph. It only takes ten minutes to produce the graph, and the clustering effect is better than that of Gephi. In practice, it can successfully draw a network graph for 280,000 test sequences with an edge file size of 20 GB, which takes approximately 10 hours.
 
 
 
