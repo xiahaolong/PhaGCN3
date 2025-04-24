@@ -11,7 +11,7 @@ Several important updates:
 * **Results Optimization**: We have introduced a confidence score for the classification results.  Results with a confidence score above 0.5 are considered high-confidence predictions.
 * **Visualization Optimization**:We now support direct output of network graph visualizations, as shown in the image below. We have tested and confirmed that the current version supports visualizing network graphs with fewer than 70,000 nodes. If you need more flexible visualization options, we also provide a network source file compatible with [Gephi](https://gephi.org/) , located at **tmp/node.csv,tmp/edge.csv** in the **results** folder.
 
-<img src="https://wenguang.oss-cn-hangzhou.aliyuncs.com/figure/typora-icon.png" alt="image-20241218170530956" style="zoom: 50%;" />
+<img src="https://wenguang.oss-cn-hangzhou.aliyuncs.com/figure/1.png" alt="image-20241218170530956" style="zoom: 50%;" />
 
 PhaGCN3 is a GCN-based model that uses deep learning classifiers to learn species mask features for novel virus taxonomy classification. The following guide will help you quickly install and run it.
 
